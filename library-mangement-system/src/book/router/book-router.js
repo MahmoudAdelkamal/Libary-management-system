@@ -5,6 +5,7 @@ import {
   createBookSchema,
   updateBookBodySchema,
   updateBookParamsSchema,
+  deleteBookSchema,
 } from "../validation/book-validation.js";
 
 const BooksRouter = Router();
@@ -16,6 +17,12 @@ BooksRouter.patch(
   validateRequest(updateBookParamsSchema, "params"),
   validateRequest(updateBookBodySchema),
   BookController.update
+);
+
+BooksRouter.delete(
+  "/:id",
+  validateRequest(deleteBookSchema, "params"),
+  BookController.delete
 );
 
 export default BooksRouter;

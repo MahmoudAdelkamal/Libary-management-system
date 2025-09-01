@@ -70,3 +70,8 @@ export const updateBookBodySchema = Joi.object({
     "number.min": `"availableQty" must be at least {#limit}`,
   }),
 });
+
+// delete book validation schemas
+export const deleteBookSchema = Joi.object({
+  id: Joi.number().min(1).required(),
+});
