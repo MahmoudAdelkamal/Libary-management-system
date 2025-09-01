@@ -75,3 +75,42 @@ export const updateBookBodySchema = Joi.object({
 export const deleteBookSchema = Joi.object({
   id: Joi.number().min(1).required(),
 });
+
+// find all books validation schemas
+export const findAllBooksSchema = Joi.object({
+  limit: Joi.number().integer().min(5).max(20).default(10).messages({
+    "number.base": "'limit' must be a number",
+    "number.integer": "'limit' must be an integer",
+    "number.min": "'limit' must be at least 5",
+  }),
+  offset: Joi.number().integer().min(0).default(0).messages({
+    "number.base": "'offset' must be a number",
+    "number.integer": "'offset' must be an integer",
+    "number.min": "'offset' must be at least 0",
+  }),
+  sortAttribute: Joi.string()
+    .valid("title", "author", "isbn", "availableQty", "shelfLocation")
+    .default("title")
+    .messages({
+      "any.only":
+        "'sortAttribute' must be one of 'title', 'author', 'isbn', 'availableQty', or 'shelfLocation'",
+      "string.base": "'sortAttribute' must be a string",
+    }),
+  sortOrder: Joi.string()
+    .valid("ASC", "DESC")
+    .default("ASC")
+    .insensitive()
+    .messages({
+      "any.only": "'sortOrder' must be either 'ASC' or 'DESC'",
+      "string.base": "'sortOrder' must be a string",
+    }),
+  searchTerm: Joi.string()
+    .allow(null, "")
+    .trim()
+    .max(100)
+    .default(null)
+    .messages({
+      "string.base": "'searchTerm' must be a string",
+      "string.max": "'searchTerm' cannot exceed 100 characters",
+    }),
+});

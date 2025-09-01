@@ -6,6 +6,7 @@ import {
   updateBookBodySchema,
   updateBookParamsSchema,
   deleteBookSchema,
+  findAllBooksSchema,
 } from "../validation/book-validation.js";
 
 const BooksRouter = Router();
@@ -23,6 +24,12 @@ BooksRouter.delete(
   "/:id",
   validateRequest(deleteBookSchema, "params"),
   BookController.delete
+);
+
+BooksRouter.get(
+  "/",
+  validateRequest(findAllBooksSchema, "query"),
+  BookController.findAll
 );
 
 export default BooksRouter;

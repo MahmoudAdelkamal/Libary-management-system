@@ -44,6 +44,19 @@ class BookController {
         .json({ error: error.message });
     }
   }
+
+  static async findAll(req, res) {
+    try {
+      const { total, data: books } = await BookService.findAll(req.query);
+      res.status(httpStatus.OK).json({
+        message: "success",
+        total,
+        books,
+      });
+    } catch (error) {
+      res.status(error.status).json({ error: error.message });
+    }
+  }
 }
 
 export default BookController;

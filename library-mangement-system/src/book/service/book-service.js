@@ -49,6 +49,41 @@ class BookService {
     await book.destroy();
     return book;
   }
+
+  static async findAll(params = {}) {
+    const {
+      limit = 10,
+      offset = 0,
+      sortAttribute = "title",
+      sortOrder = "ASC",
+      searchTerm,
+    } = params;
+
+    const query = {
+      limit: parseInt(limit),
+      offset: parseInt(offset),
+      order: [[sortAttribute, sortOrder]],
+      attributes: ["title", "author", "isbn", "availableQty", "shelfLocation"],
+      raw: true,
+    };
+
+    if (searchTerm) {
+      query.where = {
+        [Op.or]: [
+          { title: { [Op.iLike]: `%${searchTerm}%` } },
+          { author: { [Op.iLike]: `%${searchTerm}%` } },
+          { isbn: { [Op.iLike]: `%${searchTerm}%` } },
+        ],
+      };
+    }
+
+    try {
+      const { count, rows: books } = await Book.findAndCountAll(query);
+      return { total: count, data: books };
+    } catch (error) {
+      throw new Error(`Can't list books: ${error.message}`);
+    }
+  }
 }
 
 export default BookService;
