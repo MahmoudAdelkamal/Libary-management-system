@@ -2,15 +2,6 @@ import Book from "../model/book-model.js";
 import httpStatus from "http-status";
 
 class BookService {
-  async findById(BookId) {
-    const book = await Book.findByPk(BookId);
-    if (!book) {
-      const error = new Error("Book is not found !");
-      error.status = httpStatus.NOT_FOUND;
-      throw error;
-    }
-    return book;
-  }
   static async create({ title, author, isbn, availableQty, shelfLocation }) {
     try {
       const newBook = await Book.create({
