@@ -36,13 +36,6 @@ const bookSchema = {
     allowNull: false,
     allowEmpty: false,
   },
-  totalQty: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 1,
-    },
-  },
 };
 
 const Book = sequelize.define("book", bookSchema);

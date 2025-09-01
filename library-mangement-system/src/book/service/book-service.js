@@ -13,14 +13,12 @@ class BookService {
   }
   static async create({ title, author, isbn, availableQty, shelfLocation }) {
     try {
-      const totalQty = availableQty; // Initially, totalQty is equal to availableQty
       const newBook = await Book.create({
         title,
         author,
         isbn,
         availableQty,
         shelfLocation,
-        totalQty,
       });
       return newBook;
     } catch (err) {
@@ -30,7 +28,7 @@ class BookService {
     }
   }
 
-  async update(bookId, updates) {
+  static async update(bookId, updates) {
     const book = await Book.findByPk(bookId);
     if (!book) {
       const error = new Error("Book is not found !");
