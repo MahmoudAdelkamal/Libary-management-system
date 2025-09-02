@@ -31,6 +31,9 @@ This document describes the development of a library management system using nod
 - postgres
 - Restful api design
 
+# Database schema
+
+
 # How to run it?
 - Create .env file same as .env.example as a template.
 - add this key as an env var **DB_URL=postgres://postgres:postgres@postgres:5432/library_management_system**
