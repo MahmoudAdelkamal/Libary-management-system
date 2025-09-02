@@ -66,10 +66,12 @@ class BorrowerController {
 
   static async findAll(req, res) {
     try {
-      const { count, borrowers } = await BorrowerService.findAll(req.query);
+      const { total, data: borrowers } = await BorrowerService.findAll(
+        req.query
+      );
       res.status(httpStatus.OK).json({
         message: "Success",
-        count,
+        total,
         borrowers,
       });
     } catch (error) {

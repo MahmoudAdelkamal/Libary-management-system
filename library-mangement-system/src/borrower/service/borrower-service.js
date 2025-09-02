@@ -94,8 +94,8 @@ class BorrowerService {
         raw: true,
       };
 
-      const { count, rows } = await Borrower.findAndCountAll(query);
-      return { total: count, data: rows };
+      const { count, rows: borrowers } = await Borrower.findAndCountAll(query);
+      return { total: count, data: borrowers };
     } catch (error) {
       throw new Error("Error fetching borrowers");
     }
