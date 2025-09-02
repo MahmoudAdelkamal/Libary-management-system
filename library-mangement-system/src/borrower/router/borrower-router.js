@@ -1,5 +1,6 @@
 import { Router } from "express";
 import BorrowerController from "../controller/borrower-controller.js";
+import { stringToDate } from "../../shared/middleware/str-date-converter.js";
 import {
   findAllBorrowersSchema,
   deleteBorrowerSchema,
@@ -7,6 +8,9 @@ import {
   loginBorrowerSchema,
   updateBorrowerParamsSchema,
   updateBorrowerBodySchema,
+  borrowParamsSchema,
+  borrowBodySchema,
+  returnBookParamsSchema,
 } from "../validation/borrower-validation.js";
 import { validateRequest } from "../../shared/middleware/request-validator.js";
 import { authenticateToken } from "../../shared/middleware/authenticator.js";
@@ -44,6 +48,22 @@ BorrowerRouter.post(
   "/login",
   validateRequest(loginBorrowerSchema),
   BorrowerController.login
+);
+
+BorrowerRouter.post(
+  "/:id/books/:bookId/borrow",
+  authenticateToken,
+  validateRequest(borrowParamsSchema, "params"),
+  validateRequest(borrowBodySchema),
+  stringToDate("returnDate"),
+  BorrowerController.borrowBook
+);
+
+BorrowerRouter.post(
+  "/:id/books/:bookId/return",
+  authenticateToken,
+  validateRequest(returnBookParamsSchema, "params"),
+  BorrowerController.returnBook
 );
 
 export default BorrowerRouter;

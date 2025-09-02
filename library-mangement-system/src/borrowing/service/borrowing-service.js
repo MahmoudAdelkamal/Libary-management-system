@@ -7,7 +7,7 @@ import BorrowingProcess from "../model/borrowing-model.js";
 
 class BorrowingProcessService {
   static async borrowBook(borrowerId, bookId, returnDate) {
-    const book = await Book.findById(bookId);
+    const book = await Book.findByPk(bookId);
 
     const existingBorrowingTransaction = await BorrowingProcess.findOne({
       where: { borrowerId, bookId, confirmedReturnDate: null },
@@ -46,7 +46,7 @@ class BorrowingProcessService {
   }
 
   static async returnBook(borrowerId, bookId) {
-    const book = await Book.findById(bookId);
+    const book = await Book.findByPk(bookId);
 
     const activeBorrowingTransaction = await BorrowingProcess.findOne({
       where: { borrowerId, bookId, confirmedReturnDate: null },

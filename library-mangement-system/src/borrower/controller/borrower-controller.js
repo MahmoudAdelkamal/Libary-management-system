@@ -1,5 +1,7 @@
 import httpStatus from "http-status";
 import BorrowerService from "../service/borrower-service.js";
+import BorrowingProcess from "../../borrowing/model/borrowing-model.js";
+import BorrowingProcessService from "../../borrowing/service/borrowing-service.js";
 class BorrowerController {
   static async signUp(req, res) {
     try {
@@ -76,6 +78,53 @@ class BorrowerController {
       });
     } catch (error) {
       res.status(error.status).json({ error: error.message });
+    }
+  }
+
+  static async borrowBook(req, res) {
+    try {
+      const borrowerId = req.params.id;
+      const bookId = req.params.bookId;
+
+      const borrowProcess = await BorrowingProcessService.borrowBook(
+        borrowerId,
+        bookId,
+        req.body.returnDate
+      );
+      const { returnDate } = borrowProcess.toJSON();
+      res.status(httpStatus.CREATED).json({
+        message: "the borrowing process is done successfully",
+        borrowerId,
+        bookId,
+        returnDate,
+      });
+    } catch (error) {
+      res
+        .status(error.status || httpStatus.INTERNAL_SERVER_ERROR)
+        .json({ error: error.message });
+    }
+  }
+
+  static async returnBook(req, res) {
+    try {
+      const borrowerId = req.params.id;
+      const bookId = req.params.bookId;
+
+      const returnTransaction = await BorrowingProcessService.returnBook(
+        borrowerId,
+        bookId
+      );
+      const { confirmedReturnDate } = returnTransaction.toJSON();
+      res.status(httpStatus.OK).json({
+        message: "returning the book is done successfully!",
+        borrowerId,
+        bookId,
+        confirmedReturnDate,
+      });
+    } catch (error) {
+      res
+        .status(error.status || httpStatus.INTERNAL_SERVER_ERROR)
+        .json({ error: error.message });
     }
   }
 }

@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { EMAIL_REGEX } from "../../shared/utils/constants.js";
+import { EMAIL_REGEX, DATE_REGEX } from "../../shared/utils/constants.js";
 
 export const signUpBorrowerSchema = Joi.object({
   name: Joi.string().min(3).max(30).required(),
@@ -32,4 +32,18 @@ export const findAllBorrowersSchema = Joi.object({
     .valid("registeredAt", "email", "name")
     .default("registeredAt"),
   sortOrder: Joi.string().valid("ASC", "DESC").default("ASC"),
+});
+
+export const borrowParamsSchema = Joi.object({
+  id: Joi.number().min(1).required(),
+  bookId: Joi.number().min(1).required(),
+});
+
+export const borrowBodySchema = Joi.object({
+  returnDate: Joi.string().pattern(DATE_REGEX).required(),
+});
+
+export const returnBookParamsSchema = Joi.object({
+  id: Joi.number().min(1).required(),
+  bookId: Joi.number().min(1).required(),
 });
