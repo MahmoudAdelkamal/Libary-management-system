@@ -17,7 +17,7 @@ services:
 
   postgres:
     image: postgres:15
-    container_name: crackview
+    container_name: db
     environment:
       POSTGRES_DB: library_management_system
       POSTGRES_USER: postgres
