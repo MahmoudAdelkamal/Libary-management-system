@@ -6,7 +6,7 @@ import { validateRequest } from "../../shared/middleware/request-validator.js";
 const BorrowingProcessRouter = Router();
 
 BorrowingProcessRouter.get(
-  "/overdue",
+  "/last-month-overdue",
   BorrowingProcessesController.listOverdueBooks
 );
 BorrowingProcessRouter.get(
