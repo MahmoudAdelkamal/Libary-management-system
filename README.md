@@ -32,6 +32,7 @@ This document describes the development of a library management system using nod
 - Restful api design
 
 # Database schema
+<img width="1920" height="1080" alt="Screenshot from 2025-09-02 17-37-03" src="https://github.com/user-attachments/assets/97878680-ae7d-4b40-8831-202126268cba" />
 
 
 # How to run it?
