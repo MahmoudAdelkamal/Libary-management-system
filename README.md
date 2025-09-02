@@ -30,3 +30,14 @@ This document describes the development of a library management system using nod
 - Express
 - postgres
 - Restful api design
+
+# How to run it?
+- Create .env file same as .env.example as a template.
+- add this key as an env var **DB_URL=postgres://postgres:postgres@postgres:5432/library_management_system**
+- add this key as an env var **port=3000**
+- run
+- #### build with docker
+```
+docker compose up --build -d
+```
+- you can test any endpoint using this base url **http://localhost:3000/api**
