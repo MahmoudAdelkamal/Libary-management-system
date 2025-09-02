@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../../shared/db/db_ctx";
-import Book from "../../book/model/book-model";
-import Borrower from "../../borrower/model/borrower-model";
+import { sequelize } from "../../shared/db/db_ctx.js";
+import Book from "../../book/model/book-model.js";
+import Borrower from "../../borrower/model/borrower-model.js";
 
 const borrowingProcessSchema = {
   id: {
