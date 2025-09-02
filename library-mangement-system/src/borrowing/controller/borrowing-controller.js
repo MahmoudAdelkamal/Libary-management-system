@@ -13,7 +13,9 @@ class BorrowingProcessesController {
         data: overdueBooks,
       });
     } catch (error) {
-      res.status(error.status).json({ error: error.message });
+      res.status(error.status || httpStatus.INTERNAL_SERVER_ERROR).json({
+        error: error.message,
+      });
     }
   }
 
@@ -26,7 +28,9 @@ class BorrowingProcessesController {
         data: borrows,
       });
     } catch (error) {
-      res.status(error.status).json({ error: error.message });
+      res.status(error.status || httpStatus.INTERNAL_SERVER_ERROR).json({
+        error: error.message,
+      });
     }
   }
 }

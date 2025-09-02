@@ -1,4 +1,8 @@
+import httpStatus from "http-status";
+import { Op } from "sequelize";
+import { sequelize } from "../../shared/db/db_ctx.js";
 import Book from "../../book/model/book-model.js";
+import Borrower from "../../borrower/model/borrower-model.js";
 import BorrowingProcess from "../model/borrowing-model.js";
 
 class BorrowingProcessService {
